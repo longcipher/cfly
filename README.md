@@ -194,8 +194,8 @@ Before local development or deployment, add some short link data:
 
 ```bash
 # Add single short link
-npx wrangler kv key put --binding=cfly "github" "https://github.com/longcipher/cfly"
-npx wrangler kv key put --binding=cfly "blog" "https://blog.example.com"
+npx wrangler kv key put --binding=cfly --preview false "github" "https://github.com/longcipher/cfly"
+npx wrangler kv key put --binding=cfly --preview false "blog" "https://blog.example.com"
 
 # Or batch add (create urls.json file)
 echo '[
@@ -205,6 +205,7 @@ echo '[
 ]' > urls.json
 
 npx wrangler kv bulk put --binding=cfly urls.json
+npx wrangler kv bulk put --binding=cfly --preview false urls.json
 ```
 
 ### 7. Deploy to Production
@@ -274,16 +275,19 @@ Or set in Cloudflare Dashboard:
 
 ```bash
 # Add single short link
-npx wrangler kv key put --binding=cfly "abc123" "https://example.com"
+npx wrangler kv key put --binding=cfly --preview false "abc123" "https://example.com"
 
-# View all short links
-npx wrangler kv key list --binding=cfly
+# View all short links (production)
+npx wrangler kv key list --binding=cfly --preview false
 
-# Get specific short link
-npx wrangler kv key get --binding=cfly "abc123"
+# View all short links (preview)
+npx wrangler kv key list --binding=cfly --preview
 
-# Delete short link
-npx wrangler kv key delete --binding=cfly "abc123"
+# Get specific short link (production)
+npx wrangler kv key get --binding=cfly --preview false "abc123"
+
+# Delete short link (production)
+npx wrangler kv key delete --binding=cfly --preview false "abc123"
 ```
 
 #### Batch Import Short Links
@@ -356,10 +360,17 @@ npx wrangler deploy
 npx wrangler tail
 
 # KV operations
-npx wrangler kv key list --binding=cfly
-npx wrangler kv key get --binding=cfly "key-name"
-npx wrangler kv key put --binding=cfly "key-name" "value"
-npx wrangler kv key delete --binding=cfly "key-name"
+# Production KV operations (explicitly target production with --preview false)
+npx wrangler kv key list --binding=cfly --preview false
+npx wrangler kv key get --binding=cfly --preview false "key-name"
+npx wrangler kv key put --binding=cfly --preview false "key-name" "value"
+npx wrangler kv key delete --binding=cfly --preview false "key-name"
+
+# Preview KV operations
+npx wrangler kv key list --binding=cfly --preview
+npx wrangler kv key get --binding=cfly --preview "key-name"
+npx wrangler kv key put --binding=cfly --preview "key-name" "value"
+npx wrangler kv key delete --binding=cfly --preview "key-name"
 ```
 
 ## 🔧 Configuration Guide

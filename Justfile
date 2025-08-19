@@ -43,21 +43,41 @@ create-kv:
 list-urls:
     npx wrangler kv key list --binding=cfly --preview false
 
+# List short links by Namespace ID (usage: just list-urls-by-id <namespaceId>)
+list-urls-by-id namespaceId:
+    npx wrangler kv key list --namespace-id {{namespaceId}}
+
 # Add short link (usage: just add-url key url)
 add-url key url:
     npx wrangler kv key put --binding=cfly --preview false "{{key}}" "{{url}}"
+
+# Add short link by Namespace ID (usage: just add-url-by-id <namespaceId> <key> <url>)
+add-url-by-id namespaceId key url:
+    npx wrangler kv key put --namespace-id {{namespaceId}} "{{key}}" "{{url}}"
 
 # Get short link (usage: just get-url key)
 get-url key:
     npx wrangler kv key get --binding=cfly --preview false "{{key}}"
 
+# Get short link by Namespace ID (usage: just get-url-by-id <namespaceId> <key>)
+get-url-by-id namespaceId key:
+    npx wrangler kv key get --namespace-id {{namespaceId}} "{{key}}"
+
 # Delete short link (usage: just delete-url key)
 delete-url key:
     npx wrangler kv key delete --binding=cfly --preview false "{{key}}"
 
+# Delete short link by Namespace ID (usage: just delete-url-by-id <namespaceId> <key>)
+delete-url-by-id namespaceId key:
+    npx wrangler kv key delete --namespace-id {{namespaceId}} "{{key}}"
+
 # Batch import short links (usage: just import-urls urls.json)
 import-urls file:
     npx wrangler kv bulk put --binding=cfly --preview false "{{file}}"
+
+# Batch import short links by Namespace ID (usage: just import-urls-by-id <namespaceId> <file>)
+import-urls-by-id namespaceId file:
+    npx wrangler kv bulk put --namespace-id {{namespaceId}} "{{file}}"
 
 # Complete development workflow: format -> check -> build -> dev
 dev-full: fmt clippy check dev
