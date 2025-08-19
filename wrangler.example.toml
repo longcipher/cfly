@@ -1,0 +1,18 @@
+name = "your-worker-name"
+main = "build/worker/shim.mjs"
+compatibility_date = "2025-08-19"
+
+[build]
+command = "cargo install -q worker-build && worker-build --release"
+
+[[kv_namespaces]]
+binding = "cfly"
+preview_id = "your-preview-kv-namespace-id"
+id = "your-production-kv-namespace-id"
+
+[vars]
+HOME = "https://your-homepage.com"
+GIT_REPO = "https://github.com/your-org/your-repo"
+
+[observability]
+enabled = true
