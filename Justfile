@@ -41,23 +41,23 @@ create-kv:
 
 # List all short links
 list-urls:
-    npx wrangler kv key list --binding=cfly
+    npx wrangler kv key list --binding=cfly --preview false
 
 # Add short link (usage: just add-url key url)
 add-url key url:
-    npx wrangler kv key put --binding=cfly "{{key}}" "{{url}}"
+    npx wrangler kv key put --binding=cfly --preview false "{{key}}" "{{url}}"
 
 # Get short link (usage: just get-url key)
 get-url key:
-    npx wrangler kv key get --binding=cfly "{{key}}"
+    npx wrangler kv key get --binding=cfly --preview false "{{key}}"
 
 # Delete short link (usage: just delete-url key)
 delete-url key:
-    npx wrangler kv key delete --binding=cfly "{{key}}"
+    npx wrangler kv key delete --binding=cfly --preview false "{{key}}"
 
 # Batch import short links (usage: just import-urls urls.json)
 import-urls file:
-    npx wrangler kv bulk put --binding=cfly "{{file}}"
+    npx wrangler kv bulk put --binding=cfly --preview false "{{file}}"
 
 # Complete development workflow: format -> check -> build -> dev
 dev-full: fmt clippy check dev
